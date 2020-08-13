@@ -1,1 +1,3 @@
-# interview_practice_2020
+# interview prep 2020
+
+Solutions implemented with Golang 1.14.
