@@ -225,15 +225,6 @@ func (l *LinkedList) Delete(value string) *LLNode {
 			deletedNode = l.head
 			l.head, l.tail = nil, nil
 		}
-	case 2:
-		if l.head.value == value {
-			deletedNode = l.head
-			l.head = l.tail
-		} else if l.tail.value == value {
-			deletedNode = l.tail
-			l.tail = l.head
-			l.head.next = nil
-		}
 	default:
 		if l.head.value == value {
 			deletedNode = l.head
