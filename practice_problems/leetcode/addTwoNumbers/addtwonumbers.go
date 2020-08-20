@@ -1,7 +1,11 @@
 package addtwonumbers
 
 /*
-LeetCode Difficulty: Medium
+################
+PROBLEM
+################
+
+LeetCode difficulty: medium
 
 You are given two non-empty linked lists representing two non-negative integers.
 The digits are stored in reverse order and each of their nodes contain a single digit.
@@ -15,9 +19,7 @@ Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 0 -> 8
 Explanation: 342 + 465 = 807.
 
-*/
 
-/*
 Definition for singly-linked list.
 type ListNode struct {
     Val int
@@ -26,12 +28,26 @@ type ListNode struct {
 /*
 
 /*
-Reflection:
+################
+REFLECTION
+################
 
 Initial implementation took 15 minutes.
 Sorting out edge cases took another 15, though.
+
+These are rookie numbers. Gotta get these down to 15 in total.
 */
 
+/*
+################
+SOLUTION STATS
+################
+
+Runtime: 16 ms, faster than 32.60% of Go online submissions
+Memory Usage: 5.3 MB, less than 5.35% of Go online submissions
+*/
+
+// ListNode implements a singly-linked list.
 type ListNode struct {
 	Val  int
 	Next *ListNode
