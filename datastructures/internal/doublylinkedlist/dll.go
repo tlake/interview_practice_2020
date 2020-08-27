@@ -1,6 +1,8 @@
 package doublylinkedlist
 
-import "errors"
+import (
+	"errors"
+)
 
 // DLLNode is a node in a doubly-linked list.
 type DLLNode struct {
@@ -74,11 +76,13 @@ func (l *DLL) InsertBefore(givenNode *DLLNode, data interface{}) error {
 	node := NewDLLNode(data)
 	node.Prev = givenNode.Prev
 	node.Next = givenNode
-	givenNode.Prev = node
 
 	if givenNode == l.Head {
 		l.Head = node
+	} else {
+		givenNode.Prev.Next = node
 	}
+	givenNode.Prev = node
 
 	l.Len++
 	return nil
@@ -118,8 +122,15 @@ func (l *DLL) Delete(givenNode *DLLNode) error {
 	}
 
 	prev, next := givenNode.Prev, givenNode.Next
-	prev.Next = next
-	next.Prev = prev
+
+	if prev != nil {
+		prev.Next = next
+	}
+
+	if next != nil {
+		next.Prev = prev
+	}
+
 	givenNode.Prev, givenNode.Next = nil, nil
 	l.Len--
 

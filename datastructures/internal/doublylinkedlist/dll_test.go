@@ -205,126 +205,296 @@ func TestDLL_Append(t *testing.T) {
 }
 
 func TestDLL_InsertBefore(t *testing.T) {
-	type fields struct {
-		Head *DLLNode
-		Tail *DLLNode
-		Len  int
-	}
 	type args struct {
-		givenNode *DLLNode
-		data      interface{}
+		searchForGivenNode int
+		data               interface{}
 	}
 	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		wantErr bool
+		name     string
+		initData []interface{}
+		args     args
+		wantErr  bool
+		wantData []interface{}
+		wantLen  int
 	}{
-		// TODO: Add test cases.
+		{
+			name:     "errors if given node is nil",
+			initData: []interface{}{1, 2, 3},
+			args: args{
+				searchForGivenNode: 0,
+			},
+			wantErr:  true,
+			wantData: []interface{}{1, 2, 3},
+			wantLen:  3,
+		},
+		{
+			name:     "insert before head",
+			initData: []interface{}{1, 2, 3},
+			args: args{
+				searchForGivenNode: 1,
+				data:               4,
+			},
+			wantErr:  false,
+			wantData: []interface{}{4, 1, 2, 3},
+			wantLen:  4,
+		},
+		{
+			name:     "insert before middle",
+			initData: []interface{}{1, 2, 3},
+			args: args{
+				searchForGivenNode: 2,
+				data:               4,
+			},
+			wantErr:  false,
+			wantData: []interface{}{1, 4, 2, 3},
+			wantLen:  4,
+		},
+		{
+			name:     "insert before end",
+			initData: []interface{}{1, 2, 3},
+			args: args{
+				searchForGivenNode: 3,
+				data:               4,
+			},
+			wantErr:  false,
+			wantData: []interface{}{1, 2, 4, 3},
+			wantLen:  4,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := &DLL{
-				Head: tt.fields.Head,
-				Tail: tt.fields.Tail,
-				Len:  tt.fields.Len,
-			}
-			if err := l.InsertBefore(tt.args.givenNode, tt.args.data); (err != nil) != tt.wantErr {
+			l := setupDLL(tt.initData)
+			targetNode := l.Find(tt.args.searchForGivenNode)
+			err := l.InsertBefore(targetNode, tt.args.data)
+
+			if (err != nil) != tt.wantErr {
 				t.Errorf("DLL.InsertBefore() error = %v, wantErr %v", err, tt.wantErr)
 			}
+
+			gotData := []interface{}{}
+			curr := l.Head
+			for curr != nil {
+				gotData = append(gotData, curr.Data)
+				curr = curr.Next
+			}
+
+			if !reflect.DeepEqual(gotData, tt.wantData) {
+				t.Errorf("DLL.InsertBefore() Data = %v, want %v", gotData, tt.wantData)
+			}
+
+			if l.Len != tt.wantLen {
+				t.Errorf("DLL.InsertBefore() Len = %v, want %v", l.Len, tt.wantLen)
+			}
+
 		})
 	}
 }
 
 func TestDLL_InsertAfter(t *testing.T) {
-	type fields struct {
-		Head *DLLNode
-		Tail *DLLNode
-		Len  int
-	}
 	type args struct {
-		givenNode *DLLNode
-		data      interface{}
+		searchForGivenNode int
+		data               interface{}
 	}
 	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		wantErr bool
+		name     string
+		initData []interface{}
+		args     args
+		wantErr  bool
+		wantData []interface{}
+		wantLen  int
 	}{
-		// TODO: Add test cases.
+		{
+			name:     "errors if given node is nil",
+			initData: []interface{}{1, 2, 3},
+			args: args{
+				searchForGivenNode: 0,
+			},
+			wantErr:  true,
+			wantData: []interface{}{1, 2, 3},
+			wantLen:  3,
+		},
+		{
+			name:     "insert after head",
+			initData: []interface{}{1, 2, 3},
+			args: args{
+				searchForGivenNode: 1,
+				data:               4,
+			},
+			wantErr:  false,
+			wantData: []interface{}{1, 4, 2, 3},
+			wantLen:  4,
+		},
+		{
+			name:     "insert after middle",
+			initData: []interface{}{1, 2, 3},
+			args: args{
+				searchForGivenNode: 2,
+				data:               4,
+			},
+			wantErr:  false,
+			wantData: []interface{}{1, 2, 4, 3},
+			wantLen:  4,
+		},
+		{
+			name:     "insert after end",
+			initData: []interface{}{1, 2, 3},
+			args: args{
+				searchForGivenNode: 3,
+				data:               4,
+			},
+			wantErr:  false,
+			wantData: []interface{}{1, 2, 3, 4},
+			wantLen:  4,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := &DLL{
-				Head: tt.fields.Head,
-				Tail: tt.fields.Tail,
-				Len:  tt.fields.Len,
-			}
-			if err := l.InsertAfter(tt.args.givenNode, tt.args.data); (err != nil) != tt.wantErr {
+			l := setupDLL(tt.initData)
+			targetNode := l.Find(tt.args.searchForGivenNode)
+			err := l.InsertAfter(targetNode, tt.args.data)
+
+			if (err != nil) != tt.wantErr {
 				t.Errorf("DLL.InsertAfter() error = %v, wantErr %v", err, tt.wantErr)
 			}
+
+			gotData := []interface{}{}
+			curr := l.Head
+			for curr != nil {
+				gotData = append(gotData, curr.Data)
+				curr = curr.Next
+			}
+
+			if !reflect.DeepEqual(gotData, tt.wantData) {
+				t.Errorf("DLL.InsertAfter() Data = %v, want %v", gotData, tt.wantData)
+			}
+
+			if l.Len != tt.wantLen {
+				t.Errorf("DLL.InsertAfter() Len = %v, want %v", l.Len, tt.wantLen)
+			}
+
 		})
 	}
 }
 
 func TestDLL_Delete(t *testing.T) {
-	type fields struct {
-		Head *DLLNode
-		Tail *DLLNode
-		Len  int
-	}
-	type args struct {
-		givenNode *DLLNode
-	}
 	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		wantErr bool
+		name               string
+		initData           []interface{}
+		searchForGivenNode int
+		wantErr            bool
+		wantData           []interface{}
+		wantLen            int
 	}{
-		// TODO: Add test cases.
+		{
+			name:               "errors if given node is nil",
+			initData:           []interface{}{1, 2, 3},
+			searchForGivenNode: 0,
+			wantErr:            true,
+			wantData:           []interface{}{1, 2, 3},
+			wantLen:            3,
+		},
+		{
+			name:               "delete head",
+			initData:           []interface{}{1, 2, 3},
+			searchForGivenNode: 1,
+			wantErr:            false,
+			wantData:           []interface{}{2, 3},
+			wantLen:            2,
+		},
+		{
+			name:               "delete tail",
+			initData:           []interface{}{1, 2, 3},
+			searchForGivenNode: 3,
+			wantErr:            false,
+			wantData:           []interface{}{1, 2},
+			wantLen:            2,
+		},
+		{
+			name:               "delete middle",
+			initData:           []interface{}{1, 2, 3},
+			searchForGivenNode: 2,
+			wantErr:            false,
+			wantData:           []interface{}{1, 3},
+			wantLen:            2,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := &DLL{
-				Head: tt.fields.Head,
-				Tail: tt.fields.Tail,
-				Len:  tt.fields.Len,
-			}
-			if err := l.Delete(tt.args.givenNode); (err != nil) != tt.wantErr {
+			l := setupDLL(tt.initData)
+			targetNode := l.Find(tt.searchForGivenNode)
+			err := l.Delete(targetNode)
+
+			if (err != nil) != tt.wantErr {
 				t.Errorf("DLL.Delete() error = %v, wantErr %v", err, tt.wantErr)
 			}
+
+			gotData := []interface{}{}
+			curr := l.Head
+			for curr != nil {
+				gotData = append(gotData, curr.Data)
+				curr = curr.Next
+			}
+
+			if !reflect.DeepEqual(gotData, tt.wantData) {
+				t.Errorf("DLL.Delete() Data = %v, want %v", gotData, tt.wantData)
+			}
+
+			if l.Len != tt.wantLen {
+				t.Errorf("DLL.Delete() Len = %v, want %v", l.Len, tt.wantLen)
+			}
+
 		})
 	}
 }
 
 func TestDLL_Find(t *testing.T) {
-	type fields struct {
-		Head *DLLNode
-		Tail *DLLNode
-		Len  int
-	}
 	type args struct {
 		data interface{}
 	}
 	tests := []struct {
-		name   string
-		fields fields
-		args   args
-		want   *DLLNode
+		name     string
+		initData []interface{}
+		args     args
+		wantNode *DLLNode
 	}{
-		// TODO: Add test cases.
+		{
+			name:     "find at head",
+			initData: []interface{}{1, 2, 3},
+			args:     args{data: 1},
+			wantNode: &DLLNode{Data: 1},
+		},
+		{
+			name:     "find at tail",
+			initData: []interface{}{1, 2, 3},
+			args:     args{data: 3},
+			wantNode: &DLLNode{Data: 3},
+		},
+		{
+			name:     "find in middle",
+			initData: []interface{}{1, 2, 3},
+			args:     args{data: 2},
+			wantNode: &DLLNode{Data: 2},
+		},
+		{
+			name:     "not found",
+			initData: []interface{}{1, 2, 3},
+			args:     args{data: 4},
+			wantNode: nil,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := &DLL{
-				Head: tt.fields.Head,
-				Tail: tt.fields.Tail,
-				Len:  tt.fields.Len,
-			}
-			if got := l.Find(tt.args.data); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("DLL.Find() = %v, want %v", got, tt.want)
+			l := setupDLL(tt.initData)
+			foundNode := l.Find(tt.args.data)
+
+			if tt.wantNode == nil {
+				if !reflect.DeepEqual(tt.wantNode, foundNode) {
+					t.Errorf("DLL.Find() Node = %v, want = %v", foundNode.Data, tt.wantNode.Data)
+				}
+			} else {
+				if tt.wantNode.Data != foundNode.Data {
+					t.Errorf("DLL.Find() Node = %v, want = %v", foundNode.Data, tt.wantNode.Data)
+				}
 			}
 		})
 	}
