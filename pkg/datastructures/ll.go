@@ -83,7 +83,7 @@ func (l *LinkedList) Search(data interface{}) (*LLNode, error) {
 	return nil, fmt.Errorf("Could not find %v in list", data)
 }
 
-// Prepend adds a new node with the given data to the start of the linked list.
+// Prepend adds the given node to the start of the linked list.
 func (l *LinkedList) Prepend(node *LLNode) {
 	node.Next = l.Head
 	l.Head = node
@@ -95,7 +95,7 @@ func (l *LinkedList) Prepend(node *LLNode) {
 	l.Size++
 }
 
-// Append adds a new node with the given data to the end of the linked list.
+// Append adds the given node to the end of the linked list.
 func (l *LinkedList) Append(node *LLNode) {
 	if l.Tail == nil {
 		l.Head = node
@@ -108,7 +108,7 @@ func (l *LinkedList) Append(node *LLNode) {
 	l.Size++
 }
 
-// Insert adds a new node with the given data at the given index.
+// Insert adds the given node at the given index.
 func (l *LinkedList) Insert(node *LLNode, index int) error {
 	switch {
 	case index > l.Size:
