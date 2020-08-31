@@ -38,7 +38,7 @@ For each implentation:
 - merge sort
 - bubble sort
 - depth-first traversal of a binary search tree
-- breadth-first traversal of a binary search tree
+- [x] breadth-first traversal of a binary search tree
 - [x] in-order traversal of a binary search tree
 - pre-order traversal of a binary search tree
 - post-order traversal of a binary search tree

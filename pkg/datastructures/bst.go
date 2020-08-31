@@ -81,7 +81,28 @@ func (b *BST) Delete(node *BSTNode) {}
 
 // BreadthFirst returns a string representation of a breadth-first traversal of the tree.
 func (b *BST) BreadthFirst() string {
-	return ""
+	nodeValues, i := make([]string, b.size), 0
+	q := NewQueue()
+	curr := b.root
+	for curr != nil {
+		nodeValues[i] = fmt.Sprintf("%d", curr.data)
+		if curr.lesserChild != nil {
+			q.Enqueue(curr.lesserChild)
+		}
+		if curr.greaterChild != nil {
+			q.Enqueue(curr.greaterChild)
+		}
+
+		next := q.Dequeue()
+		if next != nil {
+			curr = next.(*BSTNode)
+			i++
+		} else {
+			curr = nil
+		}
+	}
+
+	return strings.Join(nodeValues, ", ")
 }
 
 // DepthFirst returns a string representation of a depth-first traversal of the tree.
