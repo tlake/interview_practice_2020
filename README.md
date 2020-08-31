@@ -1,6 +1,6 @@
 # interview prep 2020
 
-Solutions implemented with Golang 1.14.
+Solutions implemented with Golang 1.15.
 
 ## About
 
@@ -27,24 +27,24 @@ For each implentation:
 - [x] stack
 - [x] queue
 - [x] map
-- binary search tree
-- graph
-- heap
-- array
+- [x] binary search tree
+  - [ ] add balancing
+- [ ] graph
+- [ ] heap
+- [ ] array
 
 ### Algorithms
 
-- quicksort
-- merge sort
-- bubble sort
-- depth-first traversal of a binary search tree
-- breadth-first traversal of a binary search tree
-- in-order traversal of a binary search tree
-- pre-order traversal of a binary search tree
-- post-order traversal of a binary search tree
-- binary search on an array
+- [ ] quicksort
+- [ ] merge sort
+- [ ] bubble sort
+- [x] breadth-first traversal of a binary search tree
+- [x] in-order traversal of a binary search tree
+- [x] pre-order traversal of a binary search tree
+- [x] post-order traversal of a binary search tree
+- [ ] binary search on an array
 
 ### Concurrency
 
-- blocking queue
-- thread-safe versions of all the above data structures
+- [ ] blocking queue
+- [ ] thread-safe versions of all the above data structures
