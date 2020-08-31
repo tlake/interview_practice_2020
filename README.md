@@ -27,7 +27,8 @@ For each implentation:
 - [x] stack
 - [x] queue
 - [x] map
-- binary search tree
+- [x] binary search tree
+  - add balancing
 - graph
 - heap
 - array
