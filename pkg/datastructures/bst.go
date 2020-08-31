@@ -105,23 +105,18 @@ func (b *BST) BreadthFirst() string {
 	return strings.Join(nodeValues, ", ")
 }
 
-// DepthFirst returns a string representation of a depth-first traversal of the tree.
-func (b *BST) DepthFirst() string {
-	return ""
-}
-
 // InOrder returns a string representation of an in-order traversal of the tree.
+// (lesser, root, greater)
 func (b *BST) InOrder() string {
 	getLeast := func() *BSTNode {
-		curr := b.root
-		if curr == nil {
+		if b.root == nil {
 			return nil
 		}
 
+		curr := b.root
 		for curr.lesserChild != nil {
 			curr = curr.lesserChild
 		}
-
 		return curr
 	}
 
@@ -160,11 +155,61 @@ func (b *BST) InOrder() string {
 }
 
 // PreOrder returns a string representation of a pre-order traversal of the tree.
+// (root, lesser, greater)
 func (b *BST) PreOrder() string {
-	return ""
+	if b.root == nil {
+		return ""
+	}
+
+	nodeValues, i := make([]string, b.size), 0
+	s := NewStack()
+	s.Push(b.root)
+
+	for s.Peek() != nil {
+		node := s.Pop().(*BSTNode)
+		nodeValues[i] = fmt.Sprintf("%d", node.data)
+
+		if node.greaterChild != nil {
+			s.Push(node.greaterChild)
+		}
+		if node.lesserChild != nil {
+			s.Push(node.lesserChild)
+		}
+
+		i++
+	}
+
+	return strings.Join(nodeValues, ", ")
 }
 
 // PostOrder returns a string representation of a post-order traversal of the tree.
+// (lesser, greater, root)
 func (b *BST) PostOrder() string {
-	return ""
+	if b.root == nil {
+		return ""
+	}
+
+	nodeValues, i := make([]string, b.size), 0
+	s1, s2 := NewStack(), NewStack()
+	s1.Push(b.root)
+
+	for s1.Peek() != nil {
+		node := s1.Pop().(*BSTNode)
+		s2.Push(node)
+
+		if node.lesserChild != nil {
+			s1.Push(node.lesserChild)
+		}
+		if node.greaterChild != nil {
+			s1.Push(node.greaterChild)
+		}
+	}
+
+	for s2.Peek() != nil {
+		node := s2.Pop().(*BSTNode)
+		nodeValues[i] = fmt.Sprintf("%d", node.data)
+		i++
+	}
+
+	return strings.Join(nodeValues, ", ")
 }
