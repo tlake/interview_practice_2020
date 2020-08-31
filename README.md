@@ -28,23 +28,23 @@ For each implentation:
 - [x] queue
 - [x] map
 - [x] binary search tree
-  - add balancing
-- graph
-- heap
-- array
+  - [ ] add balancing
+- [ ] graph
+- [ ] heap
+- [ ] array
 
 ### Algorithms
 
-- quicksort
-- merge sort
-- bubble sort
+- [ ] quicksort
+- [ ] merge sort
+- [ ] bubble sort
 - [x] breadth-first traversal of a binary search tree
 - [x] in-order traversal of a binary search tree
 - [x] pre-order traversal of a binary search tree
 - [x] post-order traversal of a binary search tree
-- binary search on an array
+- [ ] binary search on an array
 
 ### Concurrency
 
-- blocking queue
-- thread-safe versions of all the above data structures
+- [ ] blocking queue
+- [ ] thread-safe versions of all the above data structures
