@@ -33,5 +33,30 @@ func (b *BST) Search(data int) *BSTNode {
 // Delete removes the given node from the tree.
 func (b *BST) Delete(node *BSTNode) {}
 
+// BreadthFirst returns a string representation of a breadth-first traversal of the tree.
+func (b *BST) BreadthFirst() string {
+	return ""
+}
+
+// DepthFirst returns a string representation of a depth-first traversal of the tree.
+func (b *BST) DepthFirst() string {
+	return ""
+}
+
+// InOrder returns a string representation of an in-order traversal of the tree.
+func (b *BST) InOrder() string {
+	return ""
+}
+
+// PreOrder returns a string representation of a pre-order traversal of the tree.
+func (b *BST) PreOrder() string {
+	return ""
+}
+
+// PostOrder returns a string representation of a post-order traversal of the tree.
+func (b *BST) PostOrder() string {
+	return ""
+}
+
 // insert is called by Insert, and does the work of adding the given node to the tree.
 func (b *BST) insert(node *BSTNode) {}
