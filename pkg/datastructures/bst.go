@@ -73,11 +73,66 @@ func (b *BST) insert(newNode *BSTNode) {
 // Search walks the tree looking for the given data. If found, Search returns the node;
 // if not, Search returns nil.
 func (b *BST) Search(data int) *BSTNode {
+	curr := b.root
+
+	for curr != nil {
+		switch {
+		case data < curr.data:
+			curr = curr.lesserChild
+		case data > curr.data:
+			curr = curr.greaterChild
+		default:
+			return curr
+		}
+	}
+
 	return nil
 }
 
 // Delete removes the given node from the tree.
-func (b *BST) Delete(node *BSTNode) {}
+func (b *BST) Delete(node *BSTNode) {
+	switch {
+	// no children
+	case (node.lesserChild == nil && node.greaterChild == nil):
+		p := node.parent
+		if p.lesserChild == node {
+			p.lesserChild = nil
+		} else {
+			p.greaterChild = nil
+		}
+		node.parent = nil
+		b.size--
+		return
+
+	// one child
+	case (node.lesserChild != nil && node.greaterChild == nil):
+		if node.parent.lesserChild == node {
+			node.parent.lesserChild = node.lesserChild
+		} else {
+			node.parent.greaterChild = node.lesserChild
+		}
+		node.lesserChild.parent = node.parent
+		b.size--
+		return
+
+	case (node.greaterChild != nil && node.lesserChild == nil):
+		if node.parent.lesserChild == node {
+			node.parent.lesserChild = node.greaterChild
+		} else {
+			node.parent.greaterChild = node.greaterChild
+		}
+		node.greaterChild.parent = node.parent
+		b.size--
+		return
+
+	// two children
+	default:
+		nextNode := b.getLeast(node.greaterChild)
+		node.data = nextNode.data
+		b.Delete(nextNode)
+		return
+	}
+}
 
 // BreadthFirst returns a string representation of a breadth-first traversal of the tree.
 func (b *BST) BreadthFirst() string {
@@ -105,21 +160,20 @@ func (b *BST) BreadthFirst() string {
 	return strings.Join(nodeValues, ", ")
 }
 
+// getLeast returns the least node that is a child of the given node
+func (b *BST) getLeast(node *BSTNode) *BSTNode {
+	if node == nil {
+		return nil
+	}
+	for node.lesserChild != nil {
+		node = node.lesserChild
+	}
+	return node
+}
+
 // InOrder returns a string representation of an in-order traversal of the tree.
 // (lesser, root, greater)
 func (b *BST) InOrder() string {
-	getLeast := func() *BSTNode {
-		if b.root == nil {
-			return nil
-		}
-
-		curr := b.root
-		for curr.lesserChild != nil {
-			curr = curr.lesserChild
-		}
-		return curr
-	}
-
 	getNext := func(input *BSTNode) *BSTNode {
 		curr := input
 		// if curr has a greater child, return that child's least terminus
@@ -142,8 +196,12 @@ func (b *BST) InOrder() string {
 		return nil
 	}
 
+	if b.root == nil {
+		return ""
+	}
+
 	nodeValues, i := make([]string, b.size), 0
-	curr := getLeast()
+	curr := b.getLeast(b.root)
 
 	for curr != nil {
 		nodeValues[i] = fmt.Sprintf("%d", curr.data)
