@@ -39,7 +39,7 @@ For each implentation:
 - bubble sort
 - depth-first traversal of a binary search tree
 - breadth-first traversal of a binary search tree
-- in-order traversal of a binary search tree
+- [x] in-order traversal of a binary search tree
 - pre-order traversal of a binary search tree
 - post-order traversal of a binary search tree
 - binary search on an array
