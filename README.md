@@ -28,7 +28,7 @@ For each implentation:
 - [x] queue
 - [x] map
 - [x] binary search tree
-  - [ ] add balancing
+  - [ ] add balancing?
 - [ ] graph
 - [ ] heap
 - [ ] array
@@ -38,6 +38,8 @@ For each implentation:
 - [ ] quicksort
 - [ ] merge sort
 - [ ] bubble sort
+- [x] breadth-first search of a binary search tree
+- [x] depth-first (pre-order) search of a binary search tree
 - [x] breadth-first traversal of a binary search tree
 - [x] in-order traversal of a binary search tree
 - [x] pre-order traversal of a binary search tree

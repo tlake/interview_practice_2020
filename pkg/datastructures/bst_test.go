@@ -518,3 +518,79 @@ func TestBST_getLeast(t *testing.T) {
 		})
 	}
 }
+
+func TestBST_BreadthFirstSearch(t *testing.T) {
+	type args struct {
+		data int
+	}
+	tests := []struct {
+		name     string
+		initData []int
+		args     args
+		want     *BSTNode
+	}{
+		{
+			name:     "BFS finds value",
+			initData: []int{3, 1, 5, 0, 2, 4, 6},
+			args:     args{data: 4},
+			want:     &BSTNode{data: 4},
+		},
+		{
+			name:     "BFS does not find value",
+			initData: []int{3, 1, 5, 0, 2, 4, 6},
+			args:     args{data: 7},
+			want:     nil,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			b := buildBST(tt.initData)
+			got := b.BreadthFirstSearch(tt.args.data)
+			if tt.want == nil {
+				if !reflect.DeepEqual(got, tt.want) {
+					t.Errorf("BST.BreadthFirstSearch() = %v, want %v", got, tt.want)
+				}
+			} else if got.data != tt.want.data {
+				t.Errorf("BST.BreadthFirstSearch() = %v, want %v", got.data, tt.want.data)
+			}
+		})
+	}
+}
+
+func TestBST_DepthFirstSearch(t *testing.T) {
+	type args struct {
+		data int
+	}
+	tests := []struct {
+		name     string
+		initData []int
+		args     args
+		want     *BSTNode
+	}{
+		{
+			name:     "DFS finds value",
+			initData: []int{3, 1, 5, 0, 2, 4, 6},
+			args:     args{data: 4},
+			want:     &BSTNode{data: 4},
+		},
+		{
+			name:     "DFS does not find value",
+			initData: []int{3, 1, 5, 0, 2, 4, 6},
+			args:     args{data: 7},
+			want:     nil,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			b := buildBST(tt.initData)
+			got := b.DepthFirstSearch(tt.args.data)
+			if tt.want == nil {
+				if !reflect.DeepEqual(got, tt.want) {
+					t.Errorf("BST.DepthFirstSearch() = %v, want %v", got, tt.want)
+				}
+			} else if got.data != tt.want.data {
+				t.Errorf("BST.DepthFirstSearch() = %v, want %v", got.data, tt.want.data)
+			}
+		})
+	}
+}

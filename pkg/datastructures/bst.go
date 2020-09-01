@@ -70,8 +70,8 @@ func (b *BST) insert(newNode *BSTNode) {
 	b.size++
 }
 
-// Search walks the tree looking for the given data. If found, Search returns the node;
-// if not, Search returns nil.
+// Search walks the tree in a binary search looking for the given data.
+// If found, it returns a pointer to the node; if not, it returns nil.
 func (b *BST) Search(data int) *BSTNode {
 	curr := b.root
 
@@ -86,6 +86,46 @@ func (b *BST) Search(data int) *BSTNode {
 		}
 	}
 
+	return nil
+}
+
+// BreadthFirstSearch walks the tree in a breadth-first traversal looking for the given data.
+// If found, it returns a pointer to the node; if not, it returns nil.
+func (b *BST) BreadthFirstSearch(data int) *BSTNode {
+	q := NewQueue()
+	q.Enqueue(b.root)
+	for q.Peek() != nil {
+		node := q.Pop().Data.(*BSTNode)
+		if node.data == data {
+			return node
+		}
+		if node.lesserChild != nil {
+			q.Enqueue(node.lesserChild)
+		}
+		if node.greaterChild != nil {
+			q.Enqueue(node.greaterChild)
+		}
+	}
+	return nil
+}
+
+// DepthFirstSearch walks the tree in a pre-order traversal looking for the given data.
+// If found, it returns a pointer to the node; if not, it returns nil.
+func (b *BST) DepthFirstSearch(data int) *BSTNode {
+	s := NewStack()
+	s.Push(b.root)
+	for s.Peek() != nil {
+		node := s.Pop().(*BSTNode)
+		if node.data == data {
+			return node
+		}
+		if node.greaterChild != nil {
+			s.Push(node.greaterChild)
+		}
+		if node.lesserChild != nil {
+			s.Push(node.lesserChild)
+		}
+	}
 	return nil
 }
 
