@@ -1,27 +1,58 @@
 package algorithms
 
-func Quicksort(array []int) []int {
-	/*
-		algorithm:
-		- pick a pivot (last, first, middle, random, median-of-three, whatever)
-		- two pointers, one at each end
-		- do swaps:
-			- while left pointer < right pointer:
-			- move left pointer to the right until it finds an item > pivot
-			- then move right pointer to the left until it finds an item < pivot
-			- swap those two items, then restart the loop at moving the left pointer to the right
-		- after swaps completed, execute the algorithm on the two sub-arrays: the array
-		  from 0 to left pointer, and the array from right pointer to the end
+/*
+	algorithm:
+	- check exit condition len(slice) < 2
+	- pick a pivot
+	- partition slice into three parts: less than pivot, pivot itself, greater than pivot
+		- swap the pivot to end of slice
+		- two pointers left, right = 0, 0
+		- for right < len(slice)-1
+			- as long as right item >= pivot, right++
+			- if right < pivot
+				- swap right and left
+				- left++, right++
+		- once all the swapping is finished, swap the pivot with
+		  the element at left (= the first item larger than the pivot)
+	- quicksort the left and right partitions
+	  we'll just keep passing in smaller and smaller slices, which are just views
+	  into the underlying inputSlice and as such will be modifying the original array
+*/
 
-		what's the base case? when do we not kick off a new round of recursion?
-		- when the leftmost index pointer is not less than the rightmost index pointer
-	*/
+/*
+time complexity: O(n log n) on average, O(n^2) in the worst case
+space complexity: O(log n)
+	we're creating new slices with every recursive call to quicksort(), but this fits a visualization
+	of a depth-first traversal, so "branches" of the algorithm finish before all "branches" are loaded.
+	(plus, slices are super lightweight.)
+*/
 
-	getPivot := func(a []int) int {
-		return len(a) / 2
+// Quicksort sorts the given input slice of ints using the quicksort algorithm.
+func Quicksort(s []int) {
+	if len(s) < 2 {
+		return
 	}
 
-	p := getPivot(array)
+	pivotIdx := partition(s, len(s)/2)
+	Quicksort(s[:pivotIdx])
+	Quicksort(s[pivotIdx+1:])
+}
 
-	return array
+func partition(s []int, pivotIdx int) int {
+	pivotValue := s[pivotIdx]
+	swapAtIndices(s, pivotIdx, len(s)-1)
+	l, r := 0, 0
+	for r < len(s)-1 {
+		if s[r] < pivotValue {
+			swapAtIndices(s, l, r)
+			l++
+		}
+		r++
+	}
+	swapAtIndices(s, l, len(s)-1)
+	return l
+}
+
+func swapAtIndices(s []int, a, b int) {
+	s[a], s[b] = s[b], s[a]
 }

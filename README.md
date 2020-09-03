@@ -35,7 +35,7 @@ For each implentation:
 
 ### Algorithms
 
-- [ ] quicksort
+- [x] quicksort
 - [ ] merge sort
 - [ ] bubble sort
 - [x] breadth-first search of a binary search tree
