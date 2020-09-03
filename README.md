@@ -44,7 +44,7 @@ For each implentation:
 - [x] in-order traversal of a binary search tree
 - [x] pre-order traversal of a binary search tree
 - [x] post-order traversal of a binary search tree
-- [ ] binary search on an array
+- [x] binary search on an array
 
 ### Concurrency
 
