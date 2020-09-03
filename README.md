@@ -37,7 +37,7 @@ For each implentation:
 
 - [x] quicksort
 - [x] merge sort
-- [ ] bubble sort
+- [x] bubble sort
 - [x] breadth-first search of a binary search tree
 - [x] depth-first (pre-order) search of a binary search tree
 - [x] breadth-first traversal of a binary search tree
