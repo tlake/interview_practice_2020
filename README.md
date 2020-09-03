@@ -50,3 +50,12 @@ For each implentation:
 
 - [ ] blocking queue
 - [ ] thread-safe versions of all the above data structures
+
+### Other
+
+- [ ] LRU Cache
+  - eviction policy is "least recently used"
+  - operations: `Put(key, value)`, `Get(key)`, `Remove(key)`
+  - the cache has a capacity. when cache is at cap and Put() is called with a new key, one element is removed/evicted from the cache according to the eviction policy.
+- [ ] Given an in-order traversal and a pre-order traversal of a tree, rebuild the tree
+- [ ] a DNS service
