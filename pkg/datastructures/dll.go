@@ -37,10 +37,14 @@ func NewDLL(node *DLLNode) *DLL {
 	}
 }
 
-// Push creates a new node containing the given data at the front of the DLL.
+// Push creates a new node, then sends it to l.PushNode to add it to the front of the DLL.
 func (l *DLL) Push(data interface{}) {
 	node := NewDLLNode(data)
+	l.PushNode(node)
+}
 
+// PushNode adds a given node to the front of the DLL
+func (l *DLL) PushNode(node *DLLNode) {
 	if l.Head == nil {
 		l.Head, l.Tail = node, node
 	} else {
