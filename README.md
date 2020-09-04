@@ -53,7 +53,7 @@ For each implentation:
 
 ### Other
 
-- [ ] LRU Cache
+- [x] LRU Cache
   - eviction policy is "least recently used"
   - operations: `Put(key, value)`, `Get(key)`, `Remove(key)`
   - the cache has a capacity. when cache is at cap and Put() is called with a new key, one element is removed/evicted from the cache according to the eviction policy.
